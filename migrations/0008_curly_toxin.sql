@@ -1,0 +1,1 @@
+ALTER TABLE "kyc" ADD CONSTRAINT "kyc_group_name_group_id_fk" FOREIGN KEY ("group_name") REFERENCES "public"."group"("id") ON DELETE no action ON UPDATE no action;
