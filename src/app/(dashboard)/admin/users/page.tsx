@@ -17,8 +17,8 @@ import { SendInviteForm } from "./SendInviteForm";
 import { SendGroupInviteForm } from "./SendGroupInviteForm";
 
 export default async function Page() {
-  const users = await getUserList().then((response) => response.data);
-  const invitations = await getInvitations().then((response) => response.data);
+  const users = await getUserList();
+  const invitations = await getInvitations();
   const groupsForInvite = await listGroupsForInvite();
   const pendingGroupInvites = await listPendingGroupInvites();
   const appBase = (process.env.NEXT_PUBLIC_APP_URL ?? "").replace(/\/$/, "");

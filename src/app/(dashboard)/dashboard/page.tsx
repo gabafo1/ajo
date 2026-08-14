@@ -119,7 +119,7 @@ export default async function Dashboard() {
           <div className="md:col-span-1 lg:col-span-2">
             <div className="bg-card rounded-lg p-6 shadow-sm">
               <h2 className="text-xl font-bold m-4">Recent Members</h2>
-              <UsersTable data={Array.isArray(allUsers) ? allUsers : (allUsers?.data ?? [])} />
+              <UsersTable data={allUsers} />
             </div>
           </div>
           <ChartPie data={platformBreakDown} />

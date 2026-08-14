@@ -119,8 +119,12 @@ export async function getInvitations() {
     }
 
     const client = await clerkClient();
-    const invitations = await client.invitations.getInvitationList({ status: "pending" })
-    return invitations;
+
+    const invitations = await client.invitations.getInvitationList({
+        status: "pending",
+    });
+
+    return invitations.data;
 }
 
 export async function revokeInvitation(invitationId: string) {
@@ -159,7 +163,9 @@ export async function getUserList() {
     }
 
     const client = await clerkClient();
-    return await client.users.getUserList();
+    const response = await client.users.getUserList();
+
+    return response.data;
 }
 
 export async function sendInvitation(
