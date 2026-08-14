@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { contributions, cycles, groupMembers } from "@/db/schema";
+import { contributions, groupMembers } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { adjustUserScore } from "@/services/reputation";
 

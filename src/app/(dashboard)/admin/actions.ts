@@ -16,7 +16,7 @@ import {
     groups,
     groupInvites,
 } from "@/db/schema";
-import { count, sql, asc, and, or, eq, isNull, desc, inArray } from "drizzle-orm"
+import { count, sql, asc, and, eq, desc, inArray } from "drizzle-orm"
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { Roles } from "@/types/globals";
 import { revalidatePath } from "next/cache";
@@ -98,7 +98,8 @@ export async function removeRole(formData: FormData) {
         const targetId = formData.get("id") as string;
         const targetUser = await client.users.getUser(targetId);
 
-        const { role, ...rest } = targetUser.publicMetadata;
+        // Removed unused `role` extraction from publicMetadata
+        const { role: _, ...rest } = targetUser.publicMetadata;
         const res = await client.users.updateUser(targetId, {
             publicMetadata: rest,
         });
@@ -665,9 +666,6 @@ export async function getGroupLastCycleContributions(groupId: string): Promise<s
     return String(result[0]?.total ?? 0);
 }
 
-// FIX: pulls groupName from the `groups` table (the actual source of truth
-// for a group's name) instead of `kyc.groupName`, which is being removed
-// from onboarding and was never a reliable per-member value anyway.
 export async function getGroupMembers(groupId: string) {
     const [group] = await db
         .select({ groupName: groups.groupName })

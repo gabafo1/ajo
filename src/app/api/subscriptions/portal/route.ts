@@ -19,10 +19,11 @@ export async function POST(req: NextRequest) {
       `${origin}/dashboard/billing`
     );
     return NextResponse.json({ url });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Portal session error:", err);
+    const errorMessage = err instanceof Error ? err.message : "Failed to create portal session";
     return NextResponse.json(
-      { error: err.message ?? "Failed to create portal session" },
+      { error: errorMessage },
       { status: 500 }
     );
   }

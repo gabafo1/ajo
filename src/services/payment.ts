@@ -3,7 +3,22 @@ import { postLedgerTransaction } from "./ledger";
 import { createContribution } from "./contributions";
 import { getUserWallet } from "./accounts";
 
-export async function handleSuccessfulPayment(data: any) {
+interface PaymentMetadata {
+  userId: string;
+  groupId: string;
+  cycleId: string;
+  groupPoolAccountId: string;
+  [key: string]: unknown;
+}
+
+interface PaymentData {
+  amount: number;
+  reference: string;
+  metadata: PaymentMetadata;
+  [key: string]: unknown;
+}
+
+export async function handleSuccessfulPayment(data: PaymentData) {
   const metadata = data.metadata;
 
   const userId = metadata.userId;

@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ url });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Checkout session error:", err);
     return NextResponse.json(
       { error: "Failed to create checkout session" },

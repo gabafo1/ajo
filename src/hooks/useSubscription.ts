@@ -43,8 +43,11 @@ export function useSubscription(): UseSubscriptionReturn {
         if (!res.ok) throw new Error("Failed to fetch subscription");
         const data: SubscriptionStatus = await res.json();
         if (!cancelled) setSubscription(data);
-      } catch (err: any) {
-        if (!cancelled) setError(err.message);
+      } catch (err: unknown) {
+        if (!cancelled) {
+          const errorMessage = err instanceof Error ? err.message : "An unknown error occurred";
+          setError(errorMessage);
+        }
       } finally {
         if (!cancelled) setIsLoading(false);
       }

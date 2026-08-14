@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { contributions, groupMembers, cycles } from "@/db/schema";
+import { contributions, groupMembers } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 export async function isCycleComplete(cycleId: string, groupId: string) {

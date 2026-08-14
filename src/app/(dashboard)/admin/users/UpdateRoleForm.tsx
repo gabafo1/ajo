@@ -38,7 +38,7 @@ export const UpdateRoleForm = ({
         }
 
         toast.success(`Role updated to ${newRole}`);
-      } catch (err) {
+      } catch {
         setCurrentRole(previousRole); // revert
         toast.error("Something went wrong updating the role");
       }

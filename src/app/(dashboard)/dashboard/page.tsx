@@ -43,7 +43,6 @@ export default async function Dashboard() {
 
   const isAdmin = user.publicMetadata?.role === "admin";
 
-  const subscription = await getUserSubscription();
 
   // Fetch KYC — groupName is the group identifier for non-admin users
   const existingKyc = await db

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Users, PiggyBank, CalendarDays, BarChart3, Plus } from "lucide-react";
+import { Users, CalendarDays, BarChart3, Plus } from "lucide-react";
 
 function QuickActions() {
   const actions = [

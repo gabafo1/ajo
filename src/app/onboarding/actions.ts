@@ -175,7 +175,7 @@ export async function submitKYC(
 
     // 6️⃣ Mark onboarding complete in Clerk
     // ✅ FIX: Preserve existing publicMetadata (especially `role`)
-    //    instead of replacing the whole object.
+    //     instead of replacing the whole object.
     const existingMetadata = clerkUser.publicMetadata ?? {};
     await client.users.updateUser(userId, {
       publicMetadata: {
@@ -184,12 +184,14 @@ export async function submitKYC(
         onboardingComplete: true,
       },
     });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("FULL ERROR:", err);
+
+    const errorMessage = err instanceof Error ? err.message : "Something went wrong. Please try again.";
 
     return {
       status: "error",
-      message: err?.message ?? "Something went wrong. Please try again.",
+      message: errorMessage,
     };
   }
 

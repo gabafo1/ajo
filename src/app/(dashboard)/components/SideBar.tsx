@@ -38,7 +38,7 @@ export function AppSideBar() {
         const res = await fetch("/api/notifications/unread-count");
         const data = await res.json();
         setUnreadCount(data.count);
-      } catch (error) {
+      } catch {
         console.error("Failed to fetch notifications");
       }
     };

@@ -22,7 +22,7 @@ async function getAuthenticatedClerkId(req: NextRequest): Promise<string | null>
  */
 export function withPlanGuard(
   minimumPlan: PlanType,
-  handler: (req: NextRequest, ctx?: any) => Promise<NextResponse>
+  handler: (req: NextRequest, ctx?: unknown) => Promise<NextResponse>
 ) {
   const planRank: Record<PlanType, number> = {
     free: 0,
@@ -30,7 +30,7 @@ export function withPlanGuard(
     enterprise: 2,
   };
 
-  return async (req: NextRequest, ctx?: any): Promise<NextResponse> => {
+  return async (req: NextRequest, ctx?: unknown): Promise<NextResponse> => {
     const clerkId = await getAuthenticatedClerkId(req);
 
     if (!clerkId) {
@@ -69,9 +69,9 @@ export function withPlanGuard(
  */
 export function withFeatureGuard(
   feature: string,
-  handler: (req: NextRequest, ctx?: any) => Promise<NextResponse>
+  handler: (req: NextRequest, ctx?: unknown) => Promise<NextResponse>
 ) {
-  return async (req: NextRequest, ctx?: any): Promise<NextResponse> => {
+  return async (req: NextRequest, ctx?: unknown): Promise<NextResponse> => {
     const clerkId = await getAuthenticatedClerkId(req);
 
     if (!clerkId) {

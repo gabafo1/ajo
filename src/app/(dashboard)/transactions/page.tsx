@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import TransactionCard from "@/app/(dashboard)/components/TransactionCard";
 
 interface Transaction {
@@ -28,7 +28,7 @@ const Transactions: React.FC = () => {
   });
   const [submitting, setSubmitting] = useState(false);
 
-  const fetchTransactions = async () => {
+  const fetchTransactions = useCallback(async () => {
     setLoading(true);
     try {
       const params = new URLSearchParams({
@@ -52,11 +52,11 @@ const Transactions: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [search, filter, page]);
 
   useEffect(() => {
     fetchTransactions();
-  }, [search, filter, page]);
+  }, [fetchTransactions]);
 
   // ✅ Handle form submit
   const handleSubmit = async (e: React.FormEvent) => {

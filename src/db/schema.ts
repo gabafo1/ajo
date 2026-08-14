@@ -10,7 +10,6 @@ import {
     index,
     uniqueIndex,
     jsonb,
-    date,
     varchar,                          // FIX 1: added missing `date` import
     decimal
 } from "drizzle-orm/pg-core";
