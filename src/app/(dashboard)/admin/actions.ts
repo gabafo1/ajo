@@ -98,8 +98,8 @@ export async function removeRole(formData: FormData) {
         const targetId = formData.get("id") as string;
         const targetUser = await client.users.getUser(targetId);
 
-        // Removed unused `role` extraction from publicMetadata
-        const { role: _, ...rest } = targetUser.publicMetadata;
+        // Destructure and omit `role` directly from publicMetadata without assignment
+        const { role, ...rest } = targetUser.publicMetadata;
         const res = await client.users.updateUser(targetId, {
             publicMetadata: rest,
         });

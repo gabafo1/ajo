@@ -27,9 +27,6 @@ async function sendSmsChannel(notification: Notification) {
   });
 }
 
-async function sendPushChannel(_notification: Notification) {
-  // Push (e.g. FCM) can be wired when device tokens are stored on the user.
-}
 
 function escapeHtml(s: string) {
   return s
@@ -45,9 +42,5 @@ export async function sendNotification(notification: Notification) {
 
   if (notification.channel === "sms") {
     await sendSmsChannel(notification);
-  }
-
-  if (notification.channel === "push") {
-    await sendPushChannel(notification);
   }
 }
