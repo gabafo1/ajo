@@ -21,7 +21,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createOrUpdateSubscription } from "@/app/(dashboard)/admin/actions";
 import { useState } from "react";
-import { useSubscription } from "@/hooks/useSubscription";
 import { cn } from "@/lib/utils";
 
 
@@ -104,7 +103,6 @@ export default function PricingCard() {
   const router = useRouter();
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
   const [billingCycle, setBillingCycle] = useState<BillingCycle>("monthly");
-  const { redirectToCheckout } = useSubscription();
 
   async function handleFreeSelect() {
     setLoadingPlan("free");
@@ -121,14 +119,31 @@ export default function PricingCard() {
   async function handleCommunitySelect() {
     setLoadingPlan("community");
     try {
-      // Routes through Stripe Checkout (subscription.service.ts)
-      await redirectToCheckout("community", billingCycle);
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          plan: "community",
+          billingCycle,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create checkout session");
+      }
+
+      const { url } = await response.json();
+      if (url) {
+        window.location.href = url;
+      } else {
+        throw new Error("No checkout URL returned");
+      }
     } catch (error) {
       console.error("Failed to start checkout:", error);
       setLoadingPlan(null);
     }
-    // Note: loading state stays true — page will redirect to Stripe
   }
+
 
   return (
     <TooltipProvider>
