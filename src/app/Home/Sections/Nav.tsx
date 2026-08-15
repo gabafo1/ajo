@@ -73,7 +73,7 @@ function Nav() {
                 >
                   Dashboard
                 </Link>
-                <UserButton afterSignOutUrl="/" />
+                <UserButton afterSignOutUrl="/dashboard" />
               </SignedIn>
             </div>
 
